@@ -1,4 +1,5 @@
 <?php 
+	ob_start();
     require_once "./control/bd.php";
 	$login = $_POST['login'];
 	
@@ -24,16 +25,20 @@
 			if (password_verify($_POST['password'], $row['password'])){
 				$_SESSION['auth'] = true;
 				$_SESSION['name'] = $row['name'];
-				header("Location: ./index.php?action=index");
+				ob_end_flush();
+				exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
+				//header("Location: ./index.php?action=index");
 				//exit;
 			}
 			else{
-				echo "Incorrect password or login.";
-				require_once"./view/login.php";
+				ob_end_flush();
+				echo "Некоректний логін або пароль. Спробуйте ще раз.";
+				include"./view/Erlogin.php";
 			}
 	}
 	else{
-		echo "Incorrect password or login.";
-		require"./view/login.php";
+		ob_end_flush();
+		echo "Некоректний логін або пароль. Спробуйте ще раз.";
+		include"./view/Erlogin.php";
 		}
 ?>
