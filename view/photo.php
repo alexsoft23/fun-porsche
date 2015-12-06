@@ -15,15 +15,10 @@
   $files = scandir($dir);
   $files = excess($files);
 ?>
-<pre>
-
-
-
-
-
-</pre>
+<p> </p>
 <div class="fotorama" align="center">
     <?php for ($i = 0; $i < count($files); $i++) { ?>
     <img src="<?=$dir."/".$files[$i]?>" alt="" />
     <?php } ?>
 </div>
+<p> </p>

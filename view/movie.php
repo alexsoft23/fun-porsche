@@ -1,11 +1,9 @@
 
-    <script type="text/javascript" src="scripts/html5gallery/jquery.js"></script>
-    <script type="text/javascript" src="scripts/html5gallery/html5gallery.js"></script>
+<script type="text/javascript" src="js/html5gallery/jquery.js"></script>
+<script type="text/javascript" src="js/html5gallery/html5gallery.js"></script>
+
+<p> </p>
 <div align="center">
-    <pre>
-
-
-    </pre>
     <div style="display:none;" class="html5gallery" data-skin="vertical" data-width="640" data-height="390">
 
         <a href="https://www.youtube.com/embed/Gqn2Ph_0TRc"><img src="https://www.youtube.com/embed/Gqn2Ph_0TRc/2.jpg" alt="The new Porsche 911 GT3 RS on the Nardo test track. Youtube Video"></a>
@@ -17,4 +15,5 @@
 
     </div>
 </div>
+<p> </p>
     <div>
