@@ -5,7 +5,7 @@
 			else
 				require_once "./layouts/header.php";
 				
-    if (isset($_GET['action']) &&  ($_GET['action'] == 'login' || $_GET['action'] == 'save_user') || $_GET['action'] == 'logout' )
+    if (isset($_GET['action']) &&  ($_GET['action'] == 'login' || $_GET['action'] == 'save_user' || $_GET['action'] == 'logout') )
 		require_once('./control/'.$_GET['action'].'.php');
     else {
     if (isset($_GET['action']) && file_exists('./view/'.$_GET['action'].'.php'))
