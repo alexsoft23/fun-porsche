@@ -2,23 +2,23 @@
 <?php
 	$correct = true;
 	if (!isset ($_POST['name']) || strlen($_POST['name']) == 0) {
-		echo "<br><br>Incorrect name<br><br>";
+		echo "<br><br>Поле нікнейм незаповнене<br><br>";
 		$correct = false;
 	}
 	if (!isset ($_POST['email']) || strlen($_POST['email']) == 0) {
-		echo "<br><br>Incorrect email<br><br>";
+		echo "<br><br>Поле електрона пошта незаповнене<br><br>";
 		$correct = false;
 	}
 	else if (!preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/", $_POST['email'])){
 		$correct = false;
-		echo "<br><br>Invalid email<br><br>";
+		echo "<br><br>Некоректна електрона пошта<br><br>";
 	}
-	if (!isset ($_POST['password']) || strlen($_POST['password']) < 0) {
-		echo "<br><br>Password is too short<br><br>";
+	if (!isset ($_POST['password']) || strlen($_POST['password']) < 3) {
+		echo "<br><br>Пароль закороткий<br><br>";
 		$correct = false;
 	}
 	else if (!isset ($_POST['password_again']) || ($_POST['password']) != $_POST['password_again']) {
-		echo "<br><br>Passwords do not match<br><br>";
+		echo "<br><br>Паролі неспівпадають<br><br>";
 		$correct = false;
 	}
 	
@@ -33,7 +33,7 @@
 			exit();
 		}
 		
-		require"./control/bd.php";
+		//require"./control/bd.php";
 		
 		else{
 			$name = $_POST['name'];
@@ -48,12 +48,11 @@
 			$mysqli->query($query);
 			if ($mysqli->errno == 0) {
 				if ($correct)
-					echo "<br><br>Successfull<br><br>";
-					require_once('./control/to_main.php');
+					echo "<br><br>Ви успішно зареєстровані<br><br>";
 			}
 			else {
 				if ($mysqli->errno == 1062) {
-					echo "<br><br>Same name.Please Choose another.<br><br>";
+					echo "<br><br>Юзер з даним і менем вже зареєстрований виберіть інше і повторіть спробу.<br><br>";
 					$correct = false;
 				}
 				else{
@@ -65,8 +64,9 @@
 		}
 	}
 	else
-		echo "<br><br>Some fields are incorrect, return to the previous page and try again.<br><br>";
+		echo "<br><br>Деякі поля некоректні. Повторвть спробу.<br><br>";
 	
 ?>
 </center>
+
 
