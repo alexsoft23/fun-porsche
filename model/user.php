@@ -57,13 +57,38 @@ class User extends Model
 	}
 	
 	/**
+	 * Пошук користувача за іменем.
+	 * @param string $name електронна пошта
+	 * @return mixed false, якщо такого користувача не знайдено, інакше об'єкт
+	 * класу User
+	 */
+	public static function findByEmail($name)
+	{
+		global $link;
+		$res = $link->query("SELECT * FROM `users` WHERE `name`='$name'");
+		$mas = $res->fetch_assoc();
+		if(count($mas)==0)
+		{
+			return false; // такого користувача не знайдено
+		}
+		// $mas містить усі поля нашого користувача з БД, наприклад, $mas["id"]
+		$user = new User;
+		$user->id = $mas['id'];
+		$user->email = $mas['email'];
+		$user->password = $mas['password'];
+		$user->name = $mas['name'];
+		$user->sex = $mas['sex'];
+		$user->admin = $mas['admin'];
+		return $user;
+	}
+	
+	/**
 	 * Чи є поточний користувач адміністратором.
 	 * @return boolean
 	 */
 	public static function isAdmin()
 	{
-		// УВАГА! '401_admin' потрібно замінити на вашу назву змінної в сесії
-		return isset($_SESSION['401_admin']) && $_SESSION['401_admin'];
+		return isset($_SESSION['admin']) && $_SESSION['admin'];
 	}
 	
 	/**
@@ -73,6 +98,6 @@ class User extends Model
 	public static function isGuest()
 	{
 		// УВАГА! '401_auth' потрібно замінити на вашу назву змінної в сесії
-		return !isset($_SESSION['401_auth']) || !((bool)$_SESSION['401_auth']);
+		return !isset($_SESSION['auth']) || !((bool)$_SESSION['auth']);
 	}
 }
