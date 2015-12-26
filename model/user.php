@@ -17,6 +17,20 @@ class User extends Model
 	}
 	
 	/**
+	 * Універсальний getter для всіх полів.
+	 * @param string $field_name назва поля
+	 * @return mixed null, якщо такого поля в класі не існує
+	 */
+	public function __get($field_name)
+	{	
+		if(property_exists($this, $field_name))
+		{	
+			return $this->$field_name;
+		}
+		return null;
+	}
+	
+	/**
 	 * Додає до бази даних нового користувача.
 	 * @param string $email електронна пошта
 	 * @param string $password пароль
@@ -24,7 +38,7 @@ class User extends Model
 	 * @param boolean $sex стать. 0 означає жіночу, 1 - чоловічу
 	 * @return boolean true, якщо запит успішно вдався, false в іншому випадку
 	 */
-	public function create($email, $password, $name, $sex)
+	/*public static function create($email, $password, $name, $sex)
 	{
 		global $link;
 		return $link->query("INSERT INTO `users` (`email`,`password`,`name`,`sex`) VALUES ('$email', '$password', '$name', '$sex')");
@@ -62,7 +76,7 @@ class User extends Model
 	 * @return mixed false, якщо такого користувача не знайдено, інакше об'єкт
 	 * класу User
 	 */
-	public static function findByEmail($name)
+	public static function findByName($name)
 	{
 		global $link;
 		$res = $link->query("SELECT * FROM `users` WHERE `name`='$name'");
