@@ -1,17 +1,23 @@
-	<div id="team" class="container text-center">
-	  <h3>Про мене</h3>
-	  <p><em>Я люблю свою робоу, і тому роблю її якнайкраще;)</em></p>
+	<div id="team" class="container">
+	  <h3 class="text-center">Про мене</h3>
+	  <p class="text-center"><em>Тварчий підхід і світла голова роблять дива;)</em></p>
 	  <p>Цей сайт створений, як навчальний проект в Чернівецькому національному університеті над яким я працюю. Його було створено для всіх українських фанатів автомобілів марки Порш. Для тих хто має такий автомобіль, тих хто має намір придбати і для тих кому просто подобається дане авто. </p>
 	  <br>
-		<div class="col-sm-3 text-center">
-		  <p class="text-center"><strong>Це я</strong></p><br>
+		<div class="col-sm-4 text-center">
+		  <p><strong>Це я</strong></p><br>
 		  <a href="#demo1" data-toggle="collapse">
-			<img src="images/alex.JPG" class="img-thumbnail" alt="Герасимчук Олександр" width="200" height="200">
+			<img src="sys_img/alex.JPG" class="img-thumbnail" alt="Герасимчук Олександр" width="200" height="200">
 		  </a>
 		  <div id="demo1" class="collapse">
 			<p>Герасимчук Олександр</p>
 			<p>Люблю коли все Гут)</p>
 		  </div>
+		</div>
+		<div class="col-sm-8">
+		  <p>Данний сайт буде доопрацьовуватися і вдосконалюватися. Всі відгуки і побажання будуть враховані. Якщо є зауваження, побажання та враження то пишіть на пощту або використайте систему зворотнього звязку. Мене цікавить ваша думка.</p>
+		</div>
+		<div class="col-sm-8 text-center">
+		  <p><strong>Зворотній звязок тимчасово непрацює!!!</strong></p>
 		</div>
 	</div>
 
@@ -22,7 +28,7 @@
 				<p>Ваші побажання, запити чи зауваження відсилайте мені на пошту і я зв'яжуся з вами.</p>
 				<p><span class="glyphicon glyphicon-map-marker"></span> Україна, м.Чернівці</p>
 				<p><span class="glyphicon glyphicon-phone"></span> +380502482271</p>
-				<p><span class="glyphicon glyphicon-envelope"></span> alexsoft23@yahoo.com</p>
+				<p><span class="glyphicon glyphicon-envelope"></span> alexsoft23@yahoo.com.ua</p>
 			</div>
 			<div class="col-sm-7 slideanim">
 				<div class="row">
