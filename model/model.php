@@ -18,24 +18,72 @@ abstract class Model
 	 * @return mixed null, якщо такого поля в класі не існує
 	 */
 	public function __get($field_name)
-	{
+	{	
 		if(property_exists($this, $field_name))
-		{
+		{	
 			return $this->$field_name;
 		}
 		return null;
 	}
 	
 	/**
-	 * Створення запису.
-	 * @param array $fields асоціативний масив. Ключі - це назви полів у БД,
-	 * значення - нові значення
-	 * @return boolean true, якщо запит успішно вдався, false в іншому випадку
+	 * Create new record.
+	 * @param array $fields associative array. Keys - fields in database,
+	 * values - new values
+	 * @return boolean true if success, false otherwise
 	 */
-	/*public function create($fields = [])
+	public static function create($fields = [])
 	{
-		// ТУТ МОЖЕ БУТИ ВАШ КОД :)
-	}*/
+		global $link;
+		$class = get_called_class();
+		$table = $class::table_name();
+		$keys = ""; $values = "";
+		foreach($fields as $key => $value) {
+			if (property_exists($class, $key)) {
+				$keys = $keys . "`" . $key . "`,";
+				$values = $values . "'" . $value . "',";
+			}
+		}
+		$values = rtrim($values, ",");
+		$keys = rtrim($keys, ",");
+		if($keys != ""){
+			return $link->query("INSERT INTO `$table` ($keys) VALUES ($values)");
+		}
+		else
+			return false;
+	}
+	
+	/**
+	 * Find record by any fields or its part.
+	 * @param array $fields associative array. Keys - fields in database,
+	 * @return resulting array of appropriate records
+	 */
+	public static function find($fields = []) {
+		global $link;
+		$class = get_called_class();
+		$table = $class::table_name();
+		$where = "";
+		foreach($fields as $key => $value) {
+			if (property_exists($class, $key)) {
+				//die($key);
+				$where = $where . "AND " . "$key" . " Like('%$value%') ";
+			}
+		}
+		$where = trim($where, "AND");
+		$where = trim($where);
+		$query = "SELECT * FROM " . "`$table`" . " WHERE $where";
+		if ($where == ""){
+			$query = trim($query);
+			$query = trim($query, "WHERE");
+		}
+		$res = $link->query($query);
+		//die($query);
+		$result = [];
+		while ($row = mysqli_fetch_array($res)) {
+			$result[] = $row;
+		}
+		return $result;
+	}
 	
 	/**
 	 * Пошук запису за будь-яким полем.
