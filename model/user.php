@@ -64,7 +64,7 @@ class User extends Model
 		$user->password = $mas['password'];
 		$user->name = $mas['name'];
 		$user->sex = $mas['sex'];
-		//$user->admin = $mas['admin'];
+		$user->admin = $mas['admin'];
 		return $user;
 	}
 	
