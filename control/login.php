@@ -13,7 +13,10 @@
 				$_SESSION['email'] = $row->__get('email');
 				$_SESSION['name'] = $row->__get('name');
 				$_SESSION['id'] = $row->__get('id');
+				$_SESSION['sex'] = $row->__get('sex');
 				$_SESSION['admin'] = $row->__get('admin');
+				$_SESSION['f_name'] = $row->__get('f_name');
+				
 				ob_end_flush();
 				exit("<meta http-equiv='refresh' content='0; url= $_SERVER[PHP_SELF]'>");
 				//header("Location: ./index.php?action=index");
@@ -36,13 +39,7 @@
 	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 	$_SESSION['name'] = $row['name'];
 	if (isset($row['name'])) {
-		/*$options = [
-					'cost' => 12,
-					'salt' => 'qwertyuiop[]qwertyuiop[]',
-					];
-			$password = password_hash($_POST['password'],  CRYPT_BLOWFISH, $options); //pw wer 
-			if($password == $row['password']) */
-			/*if (password_verify($_POST['password'], $row['password'])){
+			if (password_verify($_POST['password'], $row['password'])){
 				$_SESSION['auth'] = true;
 				$_SESSION['name'] = $row['name'];
 				ob_end_flush();
