@@ -9,7 +9,7 @@
 	
     session_start(); 
 	if(isset($_SESSION['auth']) && $_SESSION['auth'] == true)
-				if(isset($_SESSION['admin']) && $_SESSION['admin'])
+				if(User::isAdmin())
 					require_once "./layouts/header_admin.php";
 				else
 					require_once "./layouts/header_auth.php";
