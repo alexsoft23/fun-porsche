@@ -27,10 +27,10 @@ abstract class Model
 	}
 	
 	/**
-	 * Create new record.
-	 * @param array $fields associative array. Keys - fields in database,
-	 * values - new values
-	 * @return boolean true if success, false otherwise
+	 * Створення нового запису.
+	 * @param array $fields асоціативний масив. Ключі - це назви полів у БД,
+	 * значення - нові значення
+	 * @return boolean true якщо успішно, false якщо виникла помилка
 	 */
 	public static function create($fields = [])
 	{
@@ -54,9 +54,10 @@ abstract class Model
 	}
 	
 	/**
-	 * Find record by any fields or its part.
-	 * @param array $fields associative array. Keys - fields in database,
-	 * @return resulting array of appropriate records
+	 * Пошук запису за будь-яким полем.
+	 * @param array $fields асоціативний масив. Ключі - це назви полів у БД,
+	 * значення - шукані значення
+	 * @return mixed масив знайдених записів
 	 */
 	public static function find($fields = []) {
 		global $link;
@@ -84,17 +85,6 @@ abstract class Model
 		}
 		return $result;
 	}
-	
-	/**
-	 * Пошук запису за будь-яким полем.
-	 * @param array $fields асоціативний масив. Ключі - це назви полів у БД,
-	 * значення - шукані значення
-	 * @return mixed масив знайдених записів або false, якщо нічого не знайдено
-	 */
-	/*public function find($fields = [])
-	{
-		// ТУТ МОЖЕ БУТИ ВАШ КОД :)
-	}*/
 	
 	/**
 	 * Редагування запису.

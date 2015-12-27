@@ -1,34 +1,23 @@
 <?php
 class News extends Model {
-	//these fields are in 'news' table
-	private $id;
-	private $author_id;
-	private $published;
-	private $title;
-	private $text;
+	// Ці поля є в таблиці 'news'. Вони всі повинні бути protected,
+	// а не private, інакше універсальний getter з батьківського класу Model
+	// не буде їх бачити.
+	protected $id;
+	protected $author_id;
+	protected $published;
+	protected $title;
+	protected $text;
 	
 	protected static function table_name() {
 		return "news";
 	}
 	
 	/**
-	 * universal getter for all fields.
-	 * @param string $field_name field name
-	 * @return mixed null, if there is no such field
-	 */
-	public function __get($field_name)
-	{	
-		if(property_exists($this, $field_name))
-		{	
-			return $this->$field_name;
-		}
-		return null;
-	}
-	
-	/**
-	 * Find record by any fields or its part.
-	 * @param array $fields associative array. Keys - fields in database,
-	 * @return resulting array of appropriate records
+	 * Пошук запису за будь-яким полем з обмеженнями на сторінку та сортуванням по даті.
+	 * @param array $fields асоціативний масив. Ключі - це назви полів у БД,
+	 * значення - шукані значення.
+	 * @return mixed масив знайдених записів.
 	 */
 	public static function find($fields = []) {
 		global $link;
@@ -59,9 +48,8 @@ class News extends Model {
 	}
 
 	/**
-	 * Find record by any fields or its part.
-	 * @param array $fields associative array. Keys - fields in database,
-	 * @return resulting array of appropriate records
+	 * Пошук кількості опублікованих новин.
+	 * @return повертає кількість опублікованих новин.
 	 */
 	public static function countOfPublished() {
 		global $link;
@@ -72,20 +60,21 @@ class News extends Model {
 	}
 	
 	/**
-	 * Find mews by title.
-	 * @param string $title title
-	 * @return mixed false, if there is no such news, otherwise - object of News class
+	 * Пошук новин за заголовком.
+	 * @param string $title тема новин.
+	 * @return mixed false якщо такого заголовку нема, обєкт класу News якщо 
+	 * такий заголовок знайдено.
 	 */
 	public static function findByTitle($title)
 	{
 		global $link;
-		$res = $link->query("SELECT * FROM `jas467dg_news` WHERE `title`='$title'");
+		$res = $link->query("SELECT * FROM `news` WHERE `title`='$title'");
 		$mas = $res->fetch_assoc();
 		if(count($mas)==0)
 		{
-			return false; // there is no such news
+			return false; // немає таких новин.
 		}
-		// $mas contains all fields of appropriate news, e.g., $mas["author_id"]
+		// $mas містить всі поля із таблиці news що задовільнило пошук.
 		$result = new News;
 		$result->author_id = $mas['author_id'];
 		$result->published = $mas['published'];
