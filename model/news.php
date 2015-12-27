@@ -32,26 +32,25 @@ class News extends Model {
 	 */
 	public static function find($fields = []) {
 		global $link;
+		global $shift, $count;
 		$class = get_called_class();
 		$table = $class::table_name();
 		$user_table = User::table_name();
 		$where = "";
 		foreach($fields as $key => $value) {
 			if (property_exists($class, $key)) {
-				//die($key);
 				$where = $where . "AND " . "$key" . " Like('%$value%') ";
 			}
 		}
 		$where = trim($where, "AND");
 		$where = trim($where);
 		$query = "SELECT $table.*," . $user_table . ".name" . " FROM " . "`$table` INNER JOIN `$user_table` ON 
-		`$table`.`author_id` = `$user_table`.`id`" . " WHERE $where";
+		`$table`.`author_id` = `$user_table`.`id`" . " WHERE $where" . " ORDER BY `$table`.`date` DESC" . " LIMIT $shift, $count" ;
 		if ($where == ""){
 			$query = trim($query);
 			$query = trim($query, "WHERE");
 		}
 		$res = $link->query($query);
-		//die($query);
 		$result = [];
 		while ($row = mysqli_fetch_array($res)) {
 			$result[] = $row;
@@ -59,6 +58,19 @@ class News extends Model {
 		return $result;
 	}
 
+	/**
+	 * Find record by any fields or its part.
+	 * @param array $fields associative array. Keys - fields in database,
+	 * @return resulting array of appropriate records
+	 */
+	public static function countOfPublished() {
+		global $link;
+		$query = "SELECT COUNT(*) FROM `news` WHERE `published` = 1";
+		$res = $link->query($query);
+		$result = mysqli_fetch_array($res);
+		return $result['COUNT(*)'];
+	}
+	
 	/**
 	 * Find mews by title.
 	 * @param string $title title
